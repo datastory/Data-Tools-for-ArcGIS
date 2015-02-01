@@ -1,5 +1,6 @@
 import arcpy
 import pandas as pd
+import numpy as np
 
 class Toolbox(object):
     def __init__(self):
@@ -69,7 +70,7 @@ class Tool(object):
         #    print('Your table has more than 1048576 rows, which is MS Excel maximum.')
         #    quit()
 
-        nullValues = {"Double": -999.0, "Integer": -999, "Single": -999, "SmallInteger": -999, "String": ""}
+        nullValues = {"Double": np.nan, "Integer": np.nan, "Single": np.nan, "SmallInteger": np.nan, "String": ""}
         nulls = {}
 
         fields = []
