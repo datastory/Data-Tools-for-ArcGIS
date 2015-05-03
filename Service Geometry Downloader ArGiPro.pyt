@@ -117,4 +117,8 @@ class Edown(object):
 		for jsn in jsons:
 			os.remove(scratch + '\\' + jsn + '.json')
 
+		#aprx = arcpy.mp.ArcGISProject('CURRENT')
+		#m = aprx.listMaps("Map")[0]
+		#layer = arcpy.mp.LayerFile(outFe)
+		#m.addLayer(layer, "TOP")
 		return

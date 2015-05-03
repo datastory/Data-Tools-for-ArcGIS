@@ -117,4 +117,10 @@ class Edown(object):
 		for jsn in jsons:
 			os.remove(scratch + '\\' + jsn + '.json')
 
+		mxd = arcpy.mapping.MapDocument('CURRENT')
+		df = arcpy.mapping.ListDataFrames(mxd)[0]
+		layer = arcpy.mapping.Layer(outFe)
+		arcpy.mapping.AddLayer(df, layer, 'TOP')
+		del mxd
+
 		return
