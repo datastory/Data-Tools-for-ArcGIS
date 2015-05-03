@@ -1,5 +1,10 @@
 # Data Tools for ArcGIS 10.3 and ArcGIS Pro
-Handy tools for data manipulation in ArcGIS
+
+The Service Geometry Downloader Tool lets you to download geometry from ArcGis Server services, which has the Query request enabled. Especially handy when you are trying to obtain data from some governmental agency saying "We give you only crappy INSPIRE WMS." Just open the WMS, get URL of obtained images, strip everything after 'MapServer' so you get something like http://agency-server.com/arcgis/rest/services/SOME/SERVICE/MapServer. That´s your endpoints URL. So happy scraping, but always remember to obey (especially copyright) law.
+
+Data Export Tool lets you to export data in XLSX format without having Data Interoperability extension for ArcGIS.
+
+##Instaling prerequisities for Data Export
 
 For exporting to XLSX in ArcGIS Pro you have to install openpyxl compatibile with Pandas (version >=1.6.1 and <2.0.0).
 
