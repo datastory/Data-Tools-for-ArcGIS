@@ -33,13 +33,14 @@ def _get_first_source_dataset(folder):
     first_source_ds = ogr.Open(os.path.join(folder, first_source_file))
     return first_source_ds
 
-def transform(infile, output, insrs):
+def transform(infile, output, insrs, format_name):
     """Transform input file to output target file, based on input coordinate
     reference system to WGS84
 
     :param infile: name of the input file
     :param output: name of the output file
     :param insrs: epsg code of input file
+    :param format_name: ogr format name
     """
 
     logging.info('Transforming %s from %s to %s' % (infile, insrs, output)) 
@@ -53,7 +54,7 @@ def transform(infile, output, insrs):
     in_layer = in_dsn.GetLayer()
     in_feature_definition = in_layer.GetLayerDefn()
 
-    out_driver = ogr.GetDriverByName('GeoJSON')
+    out_driver = ogr.GetDriverByName(format_name)
     out_dsn = out_driver.CreateDataSource(output)
     out_layer = out_dsn.CreateLayer(in_layer.GetName(),
             geom_type=in_layer.GetGeomType())
@@ -162,22 +163,22 @@ def download_data(url, encoding):
 
     return folder
 
-def download(url, output, encoding, insrs):
+def download(url, output, encoding, insrs, format_name):
     """Download and store given data
 
     :param url: url of the service
     :param output: name of output file
     :param encoding: encoding of input data
     :param insrs: input source reference system
+    :param format: OGR format name
     """
 
     folder = download_data(url, encoding)
     joined_file = join_files(folder)
-    transform(joined_file, output, insrs)
+    transform(joined_file, output, insrs, format_name)
 
     shutil.rmtree(folder)
-    #os.remove(joined_file)
-    print joined_file
+    os.remove(joined_file)
 
     if not os.path.isfile(output):
         raise Error("Output file not created, the whole process failed")
@@ -208,6 +209,9 @@ def main():
     parser.add_argument('--verbose', action='store_true',
                        help='verbose output')
 
+    parser.add_argument('--format', default="GeoJSON",
+                       help='OGR data format name, default GeoJSON')
+
     args = parser.parse_args()
 
     if args.verbose:
@@ -225,7 +229,8 @@ def main():
             args.url,
             args.output,
             args.encoding,
-            int(args.srs))
+            int(args.srs),
+            args.format)
 
 if __name__ == '__main__':
     main()
