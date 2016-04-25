@@ -22,3 +22,33 @@ For exporting to XLSX on ArcGIS 10.3 you have to install pandas 0.13.1 (compatib
 
 This project is open under MIT License.
 
+## How to use command line interface
+
+Use --help argument:
+
+```
+$ python Service\ Geometry\ Downloader.py --help
+usage: Service Geometry Downloader.py [-h] --url URL --output OUTPUT
+                                      [--encoding ENCODING] [--srs SRS]
+                                      [--overwrite] [--verbose]
+                                      [--format FORMAT]
+
+Download data via ESRI ArcGIS Rest API
+
+optional arguments:
+  -h, --help           show this help message and exit
+  --url URL            URL of the service
+  --output OUTPUT      output file name
+  --encoding ENCODING  encoding of input data, default "utf-8"
+  --srs SRS            coordinate reference system code of input data, default
+                       "5514"
+  --overwrite          output file name
+  --verbose            verbose output
+  --format FORMAT      OGR data format name, default GeoJSO
+```
+
+and run what you need afterwards
+
+```
+$ python Service\ Geometry\ Downloader.py --url http://mpp.praha.eu/arcgis/rest/services/FS/body_zajmu/MapServer/0 --output=/tmp/moje.shp --overwrite --verbose --format 'ESRI Shapefile'
+```
